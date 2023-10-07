@@ -1,3 +1,9 @@
+
+enum formasDePagamento {
+    PIX = "Pix",
+    BOLETO = "Boleto",
+  }
+
 interface IPagar {
     fazerPagamento(): void;
   }
@@ -26,12 +32,12 @@ interface IPagar {
       this.nome = nome;
       this.codBanco = codBanco;
       this.agencia = agencia;
-      this.registrarFormaDePagamento("Pix", new Pix());
-      this.registrarFormaDePagamento("Boleto", new Boleto());
+      this.registrarFormaDePagamento(formasDePagamento.PIX, new Pix());
+      this.registrarFormaDePagamento(formasDePagamento.BOLETO, new Boleto());
     }
   
     // Método para registrar uma forma de pagamento
-    registrarFormaDePagamento(nomeForma: string, forma: IPagar) {
+    registrarFormaDePagamento(nomeForma: formasDePagamento, forma: IPagar) {
       this.formasDePagamento[nomeForma] = forma;
     }
   
@@ -50,6 +56,6 @@ interface IPagar {
   const meuBanco = new Banco("Meu Banco", "001", "12345");
   
   // Chamar métodos de pagamento diretamente do banco
-  meuBanco.fazerPagamento("Pix"); // Realizar pagamento via Pix
-  meuBanco.fazerPagamento("Boleto"); // Realizar pagamento via Boleto
+  meuBanco.fazerPagamento(formasDePagamento.PIX); // Realizar pagamento via Pix
+  meuBanco.fazerPagamento(formasDePagamento.BOLETO); // Realizar pagamento via Boleto
   
