@@ -27,11 +27,12 @@ interface IPagar {
     codBanco: string;
     agencia: string;
     formasDePagamento: Record<string, IPagar> = {};
-  
+    pagamentoPix: Class = Pix
     constructor(nome: string, codBanco: string, agencia: string) {
       this.nome = nome;
       this.codBanco = codBanco;
       this.agencia = agencia;
+      this.pagamentoPix = Pix
       this.registrarFormaDePagamento(formasDePagamento.PIX, new Pix());
       this.registrarFormaDePagamento(formasDePagamento.BOLETO, new Boleto());
     }
@@ -42,7 +43,7 @@ interface IPagar {
     }
   
     // Função para fazer um pagamento
-    fazerPagamento(forma: string) {
+    fazerPagamento(forma: formasDePagamento) {
       const formaDePagamento = this.formasDePagamento[forma];
       if (formaDePagamento) {
         formaDePagamento.fazerPagamento();
@@ -58,4 +59,4 @@ interface IPagar {
   // Chamar métodos de pagamento diretamente do banco
   meuBanco.fazerPagamento(formasDePagamento.PIX); // Realizar pagamento via Pix
   meuBanco.fazerPagamento(formasDePagamento.BOLETO); // Realizar pagamento via Boleto
-  
+  console.log(meuBanco.pagamentoPix())

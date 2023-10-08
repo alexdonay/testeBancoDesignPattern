@@ -1,3 +1,8 @@
+var formasDePagamento;
+(function (formasDePagamento) {
+    formasDePagamento["PIX"] = "Pix";
+    formasDePagamento["BOLETO"] = "Boleto";
+})(formasDePagamento || (formasDePagamento = {}));
 // Implementação de formas de pagamento específicas
 var Pix = /** @class */ (function () {
     function Pix() {
@@ -19,11 +24,13 @@ var Boleto = /** @class */ (function () {
 var Banco = /** @class */ (function () {
     function Banco(nome, codBanco, agencia) {
         this.formasDePagamento = {};
+     
         this.nome = nome;
         this.codBanco = codBanco;
         this.agencia = agencia;
-        this.registrarFormaDePagamento("Pix", new Pix());
-        this.registrarFormaDePagamento("Boleto", new Boleto());
+        this.registrarFormaDePagamento(formasDePagamento.PIX, new Pix());
+
+        this.registrarFormaDePagamento(formasDePagamento.BOLETO, new Boleto());
     }
     // Método para registrar uma forma de pagamento
     Banco.prototype.registrarFormaDePagamento = function (nomeForma, forma) {
@@ -44,5 +51,5 @@ var Banco = /** @class */ (function () {
 // Criar uma instância do banco
 var meuBanco = new Banco("Meu Banco", "001", "12345");
 // Chamar métodos de pagamento diretamente do banco
-meuBanco.fazerPagamento("Pix"); // Realizar pagamento via Pix
-meuBanco.fazerPagamento("Boleto"); // Realizar pagamento via Boleto
+meuBanco.fazerPagamento(formasDePagamento.PIX); // Realizar pagamento via Pix
+meuBanco.fazerPagamento(formasDePagamento.BOLETO); // Realizar pagamento via Boleto
